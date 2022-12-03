@@ -1,0 +1,4 @@
+pyrocketbot
+rocketchat_API
+rocket-python
+RocketChatAPIBot
