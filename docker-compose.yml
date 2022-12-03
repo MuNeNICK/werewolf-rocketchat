@@ -54,7 +54,7 @@ services:
     environment:
       ROCKET_USERNAME: Werewolf
       ROCKET_PASSWORD: Me1onpan#
-      ROCKET_SERVER_URL: https://3000--main--werewolf--munenick.coder.munenick.me
+      ROCKET_SERVER_URL: http://rocketchat:3000
 
     
 volumes:
