@@ -2,6 +2,7 @@ from time import sleep
 from game import *
 
 def run():
+    rocket.chat_post_message('!start', channel='GENERAL')
 
     while True:
 
