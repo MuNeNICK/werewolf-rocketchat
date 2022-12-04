@@ -2,12 +2,16 @@ import sys
 from pprint import pprint
 from main import rocket
 
-def start_game():
-    rocket.chat_post_message('人狼ゲームを始めます', channel='GENERAL')
+def start_game(message):
+    if message == '!start':
+        rocket.chat_post_message('人狼ゲームを始めます', channel='GENERAL')
+        send_position()
+        return 1
 
 def stop_game(message):
     if message == '!stop':
-        sys.exit()
+        rocket.chat_post_message('人狼ゲームを終了します', channel='GENERAL')
+        return 1
 
 def get_message(): # 最新のメッセージを取得
     message = rocket.channels_history('GENERAL',count=1).json() # dict型 GENERALの最新メッセージを取得
@@ -17,10 +21,10 @@ def get_message(): # 最新のメッセージを取得
 
 def compare_message(message): # 一致する文章に返信
     if message == '私は人狼です':
-        rocket.chat_post_message('お前殺す', channel='GENERAL')
+        rocket.chat_post_message('お前が人狼だったのか', channel='GENERAL')
 
     if message == '私は村人です':
-        rocket.chat_post_message('黙れ', channel='GENERAL')
+        rocket.chat_post_message('ふーん', channel='GENERAL')
 
 def send_position():
     members = rocket.channels_members('GENERAL').json() # GENERALに参加しているメンバー一覧
@@ -50,3 +54,6 @@ def send_position():
         if member != 'Werewolf':
             print(dms_dict[member])
             rocket.chat_post_message('かす', room_id=dms_dict[member]) # メンバー全員にメッセージを送信
+
+def random_position():
+
