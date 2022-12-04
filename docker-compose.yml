@@ -52,8 +52,8 @@ services:
     volumes:
       - ./data:/root/src
     environment:
-      ROCKET_USERNAME: Werewolf
-      ROCKET_PASSWORD: Me1onpan#
+      ROCKET_USERNAME: ${ROCKET_USERNAME}
+      ROCKET_PASSWORD: ${ROCKET_PASSWORD}
       ROCKET_SERVER_URL: http://rocketchat:3000
 
     
