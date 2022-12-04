@@ -1,4 +1,5 @@
 import random
+from time import sleep,time
 from pprint import pprint
 from main import rocket
 
@@ -133,3 +134,24 @@ def remove_werewolfs(): # ゲーム終了時人狼チャットから全員追い
     for user_id in users_id.values():
         if user_id != 'fyNf7LGr3Z9fzxaXY': # Werewolf以外の全てのユーザを追い出す
             rocket.groups_kick('5GkWRnwiAsSJRsQ4g', user_id)
+
+def vote_time(start_time):
+    rocket.chat_post_message('投票タイムが開始しました', channel='GENERAL')
+
+    while True:
+        end_time = time()
+        if end_time - start_time >= 10: # 投票終了
+            rocket.chat_post_message('投票タイムが終了しました', channel='GENERAL')
+            return time()
+    
+
+def night_time(start_time):
+    rocket.chat_post_message('夜の時間が開始しました', channel='GENERAL')
+    
+    while True:
+        end_time = time()
+        if end_time - start_time >= 10: # 夜の終了
+            rocket.chat_post_message('夜の時間が終了しました', channel='GENERAL')
+            start_time = time()
+            return time()
+    
