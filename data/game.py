@@ -154,4 +154,8 @@ def night_time(start_time):
             rocket.chat_post_message('夜の時間が終了しました', channel='GENERAL')
             start_time = time()
             return time()
+
+def dead():
+    rocket.roles_remove_user_from_role('Alive', 'BOT4')
+    rocket.roles_add_user_to_role('Dead', 'BOT4')
     
