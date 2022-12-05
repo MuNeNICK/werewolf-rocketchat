@@ -150,7 +150,6 @@ def vote_time(start_time):
         vote_result = vote()
         if vote_result:
             at_strings.append(vote_result)
-        print(at_strings)
         end_time = time()
         if end_time - start_time >= 20: # 投票終了
             rocket.chat_post_message('投票タイムが終了しました', channel='GENERAL')
