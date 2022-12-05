@@ -16,10 +16,13 @@ def run():
 
             sleep(1)
 
-        while True: # ゲームを介した後の処理
+        while True: # ゲームを開始した後の処理
             end_time = time()
         
             message = get_message()
+
+            compare_message(message)
+
             if stop_game(message) == 1:
                 break
 
@@ -28,6 +31,5 @@ def run():
 
                 start_time = night_time(time()) # 夜の開始
 
-            compare_message(message)
 
             sleep(1)

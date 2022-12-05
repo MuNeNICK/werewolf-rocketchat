@@ -3,6 +3,7 @@ from time import sleep,time
 from pprint import pprint
 from main import rocket
 
+
 def start_game(message):
     if message == '!start':
         rocket.chat_post_message('人狼ゲームを始めます', channel='GENERAL')
@@ -18,7 +19,10 @@ def stop_game(message):
 def get_message(): # 最新のメッセージを取得
     message = rocket.channels_history('GENERAL',count=1).json() # dict型 GENERALの最新メッセージを取得
     message_format = message['messages'] # list型
-    message_split = message_format[0]['msg'] # str型 最新のメッセージを格納
+    if not message_format: # メッセージがない場合
+        message_split = 'empty_message' # 空のメッセージを返す
+    else:
+        message_split = message_format[0]['msg'] # str型 最新のメッセージを格納
     return message_split
 
 def compare_message(message): # 一致する文章に返信
@@ -47,7 +51,7 @@ def find_user_id(channel):
     users_id = []
 
     for user_list in users_format:
-        users_name.append(user_list['name'])
+        users_name.append(user_list['username'])
         users_id.append(user_list['_id'])
     
     users_dict = dict(zip(users_name, users_id))
@@ -62,7 +66,7 @@ def find_group_user_id(channel_id):
     users_id = []
 
     for user_list in users_format:
-        users_name.append(user_list['name'])
+        users_name.append(user_list['username'])
         users_id.append(user_list['_id'])
     
     users_dict = dict(zip(users_name, users_id))
@@ -71,6 +75,7 @@ def find_group_user_id(channel_id):
 
 def find_dms():
     dms = rocket.im_list().json() # DM一覧を表示
+
     dms_format = dms['ims']
 
     dms_users = []
@@ -81,7 +86,9 @@ def find_dms():
 
     dms_users_list = []
     for dm_users in dms_users: # ユーザ名からWerewolfを削除
-        dms_users_list.append(dm_users[0])
+        for dm_user in dm_users:
+            if dm_user != 'Werewolf':
+                dms_users_list.append(dm_user)
 
     dms_dict = dict(zip(dms_users_list, dms_id)) # ユーザ名とルームIDを紐づけ(dict型)
 
@@ -99,7 +106,7 @@ def send_werewolfs(werewolfs):
     for werewolf in werewolfs:
         i = i + 1
         print('人狼' + str(i) + 'は' + werewolf + 'です。')
-        rocket.chat_post_message('あなたは人狼です \n werewolf-chatとにて他の人狼と話し合いましょう!', room_id=dms_dict[werewolf])
+        rocket.chat_post_message('あなたは人狼です \n #werewolf-chatとにて他の人狼と話し合いましょう!', room_id=dms_dict[werewolf])
         rocket.groups_invite('5GkWRnwiAsSJRsQ4g', users_dict[werewolf])
 
 def send_villagers(villagers):
@@ -137,13 +144,17 @@ def remove_werewolfs(): # ゲーム終了時人狼チャットから全員追い
 
 def vote_time(start_time):
     rocket.chat_post_message('投票タイムが開始しました', channel='GENERAL')
-
+    at_strings = []
+    
     while True:
+        vote_result = vote()
+        if vote_result:
+            at_strings.append(vote_result)
+        print(at_strings)
         end_time = time()
-        if end_time - start_time >= 10: # 投票終了
+        if end_time - start_time >= 20: # 投票終了
             rocket.chat_post_message('投票タイムが終了しました', channel='GENERAL')
             return time()
-    
 
 def night_time(start_time):
     rocket.chat_post_message('夜の時間が開始しました', channel='GENERAL')
@@ -158,4 +169,12 @@ def night_time(start_time):
 def dead():
     rocket.roles_remove_user_from_role('Alive', 'BOT4')
     rocket.roles_add_user_to_role('Dead', 'BOT4')
-    
+
+def vote():
+    message = get_message()
+    if '!vote' in message:
+        for word in message.split():
+            if word.startswith('@'):
+                at_strings = word
+        rocket.chat_post_message(at_strings + 'に投票しました', channel='GENERAL')
+        return at_strings
