@@ -2,7 +2,7 @@ import random
 from time import sleep,time
 from pprint import pprint
 from main import rocket
-
+from agents.bot1.bot1_ai import *
 
 def start_game(message):
     if message == '!start':
@@ -177,3 +177,8 @@ def vote():
                 at_strings = word
         rocket.chat_post_message(at_strings + 'に投票しました', channel='GENERAL')
         return at_strings
+
+def talk_time():
+    message = get_message()
+
+    bot1_intro()

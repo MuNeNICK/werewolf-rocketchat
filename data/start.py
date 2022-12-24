@@ -4,9 +4,7 @@ from agents.bot1.bot1 import *
 
 
 def run():
-    # rocket.chat_post_message('!start', channel='GENERAL')
-
-    start_bot1()
+    rocket.chat_post_message('!start', channel='GENERAL')
 
     while True:
 
@@ -25,6 +23,8 @@ def run():
             message = get_message()
 
             compare_message(message)
+
+            talk_time()
 
             if stop_game(message) == 1:
                 break
