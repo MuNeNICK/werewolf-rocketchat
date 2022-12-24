@@ -1,6 +1,6 @@
 from time import sleep,time
 from game import *
-from agents.bot1 import *
+from agents.bot1.bot1 import *
 
 
 def run():
