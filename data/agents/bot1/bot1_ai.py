@@ -1,7 +1,7 @@
 import openai
 from .bot1 import bot1_rocket
 
-openai.api_key = "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"
+openai.api_key = os.environ.get('OPENAI_KEY')
 
 with open('agents/bot1/start.txt') as f:
     s = f.read()
