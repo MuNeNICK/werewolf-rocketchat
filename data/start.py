@@ -1,9 +1,12 @@
 from time import sleep,time
 from game import *
+from agents.bot1 import *
 
 
 def run():
-    rocket.chat_post_message('!start', channel='GENERAL')
+    # rocket.chat_post_message('!start', channel='GENERAL')
+
+    start_bot1()
 
     while True:
 
