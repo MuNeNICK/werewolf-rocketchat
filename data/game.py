@@ -3,6 +3,7 @@ from time import sleep,time
 from pprint import pprint
 from main import rocket
 from agents.bot1.bot1_ai import *
+from agents.bot2.bot2_ai import *
 
 def start_game(message):
     if message == '!start':
@@ -182,3 +183,4 @@ def talk_time():
     message = get_message()
 
     bot1_intro()
+    bot2_intro()
