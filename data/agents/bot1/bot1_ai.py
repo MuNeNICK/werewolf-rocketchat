@@ -1,3 +1,4 @@
+import os
 import openai
 from .bot1 import bot1_rocket
 
