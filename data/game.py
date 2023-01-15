@@ -5,10 +5,12 @@ from main import rocket
 from agents.bot1.bot1_ai import *
 from agents.bot2.bot2_ai import *
 
-def start_game(message):
+def start_game(message, day):
     if message == '!start':
         rocket.chat_post_message('人狼ゲームを始めます', channel='GENERAL')
         random_position()
+
+        say_day(day)
         return 1
 
 def stop_game(message):
@@ -158,7 +160,6 @@ def vote_time(start_time):
 
 def night_time(start_time):
     rocket.chat_post_message('夜の時間が開始しました', channel='GENERAL')
-    
     while True:
         end_time = time()
         if end_time - start_time >= 10: # 夜の終了
@@ -182,5 +183,14 @@ def vote():
 def talk_time():
     message = get_message()
 
-    bot1_intro()
-    bot2_intro()
+    bot1_intro(message)
+    bot2_intro(message)
+
+def say_day(day):
+    rocket.chat_post_message(str(day) + '日目の朝です', channel='GENERAL')
+
+def day_count(day):
+    day = day + 1
+
+    say_day(day)
+    return day

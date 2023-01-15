@@ -32,6 +32,6 @@ def handle_response(message) -> str:
 
     return responseMessage
 
-def bot1_intro():
+def bot1_intro(message):
     response = handle_response("自己紹介とあなたの役職を教えてください")
     bot1_rocket.chat_post_message(response, channel='GENERAL')

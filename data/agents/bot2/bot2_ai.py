@@ -18,7 +18,7 @@ def handle_response(message) -> str:
         + message +
         '''
         GM: ただし、役職が人狼の方は自身の役職が村人であると主張してください。
-        BOT1: 
+        BOT2: 
         '''
         ,
         temperature=0.7,
@@ -32,6 +32,6 @@ def handle_response(message) -> str:
 
     return responseMessage
 
-def bot2_intro():
+def bot2_intro(message):
     response = handle_response("自己紹介とあなたの役職を教えてください")
     bot2_rocket.chat_post_message(response, channel='GENERAL')

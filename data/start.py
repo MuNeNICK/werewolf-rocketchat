@@ -6,12 +6,14 @@ from agents.bot1.bot1 import *
 def run():
     rocket.chat_post_message('!start', channel='GENERAL')
 
+    day = 1
+
     while True:
 
         while True: # ゲームを開始するまでの処理
             message = get_message()
 
-            if start_game(message) == 1:
+            if start_game(message, day) == 1:
                 start_time = time() # 議論のカウントスタート
                 break
 
@@ -34,5 +36,6 @@ def run():
 
                 start_time = night_time(time()) # 夜の開始
 
+                day = day_count(day)
 
             sleep(1)
