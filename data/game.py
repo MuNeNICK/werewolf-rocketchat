@@ -11,6 +11,10 @@ def start_game(message, day):
         random_position()
 
         say_day(day)
+
+        bot1_intro()
+        bot2_intro()
+
         return 1
 
 def stop_game(message):
@@ -183,8 +187,8 @@ def vote():
 def talk_time():
     message = get_message()
 
-    bot1_intro(message)
-    bot2_intro(message)
+    bot1_response(message)
+    bot2_response(message)
 
 def say_day(day):
     rocket.chat_post_message(str(day) + '日目の朝です', channel='GENERAL')
