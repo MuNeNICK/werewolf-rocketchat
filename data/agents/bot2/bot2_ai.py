@@ -5,12 +5,12 @@ from time import sleep,time
 
 openai.api_key = os.environ.get('OPENAI_KEY')
 
-with open('agents/bot1/start.txt') as f:
+with open('agents/bot2/start.txt') as f:
     start = f.read()
 
 def handle_response(message) -> str:
     response = openai.Completion.create(
-        model="text-davinci-003",
+        model="text-chat-davinci-002-20221122",
         prompt=
         message +
         '''

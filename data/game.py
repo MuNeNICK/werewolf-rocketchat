@@ -14,6 +14,10 @@ def start_game(message, day):
 
         bot1_intro()
         bot2_intro()
+        bot3_intro()
+        bot4_intro()
+        bot5_intro()
+        bot6_intro()
 
         return 1
 
@@ -189,6 +193,10 @@ def talk_time():
 
     bot1_response(message)
     bot2_response(message)
+    bot3_response(message)
+    bot4_response(message)
+    bot5_response(message)
+    bot6_response(message)
 
 def say_day(day):
     rocket.chat_post_message(str(day) + '日目の朝です', channel='GENERAL')

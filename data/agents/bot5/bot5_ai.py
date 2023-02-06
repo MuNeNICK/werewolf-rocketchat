@@ -5,7 +5,7 @@ from time import sleep,time
 
 openai.api_key = os.environ.get('OPENAI_KEY')
 
-with open('agents/bot1/start.txt') as f:
+with open('agents/bot5/start.txt') as f:
     start = f.read()
 
 def handle_response(message) -> str:
@@ -28,12 +28,12 @@ def handle_response(message) -> str:
 
     return responseMessage
 
-def bot1_intro():
+def bot5_intro():
     response = handle_response(start + "GM: 自己紹介とあなたの役職を教えてください。ただし、役職が人狼の方は自身の役職が村人であると主張してください。")
     # response = handle_response(start + "GM: 自己紹介とあなたの役職を教えてください。ただし、役職が人狼の方は自身の役職が村人であると主張してください。")
     bot1_rocket.chat_post_message(response, channel='GENERAL')
 
-def bot1_response(message):
+def bot5_response(message):
     response = handle_response(start + "GM: 朝になりました。議論をはじめてください。他の人:" + message)
     bot1_rocket.chat_post_message(response, channel='GENERAL')
     sleep(1)

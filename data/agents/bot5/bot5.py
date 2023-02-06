@@ -2,15 +2,10 @@ import os
 from requests import sessions
 from rocketchat_API.rocketchat import RocketChat
 
-import start
 
-username = os.environ.get('ROCKET_USERNAME')
+username = "BOT5"
 password = os.environ.get('ROCKET_PASSWORD')
 server_url = os.environ.get('ROCKET_SERVER_URL')
 
 with sessions.Session() as session:
-    rocket = RocketChat(username, password, server_url=server_url, session=session)
-
-if __name__ == '__main__':
-    print('Bot started')
-    start.run()
+    bot1_rocket = RocketChat(username, password, server_url=server_url, session=session)
