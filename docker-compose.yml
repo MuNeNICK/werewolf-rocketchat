@@ -56,6 +56,7 @@ services:
       ROCKET_PASSWORD: ${ROCKET_PASSWORD}
       ROCKET_SERVER_URL: http://rocketchat:3000
       OPENAI_KEY: ${OPENAI_KEY}
+      OPENAI_KEY2: ${OPENAI_KEY2}
 
     
 volumes:

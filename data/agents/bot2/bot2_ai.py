@@ -1,5 +1,6 @@
 import os
 import openai
+import random
 from .bot2 import bot2_rocket
 from time import sleep,time
 
@@ -18,7 +19,7 @@ def handle_response(message) -> str:
         あなた: 
         '''
         ,
-        temperature=0.7,
+        temperature=0.3,
         max_tokens=2048,
         top_p=1,
         frequency_penalty=0.8,
@@ -36,4 +37,11 @@ def bot2_intro():
 def bot2_response(message):
     response = handle_response(start + "GM: 朝になりました。議論をはじめてください。他の人:" + message)
     bot2_rocket.chat_post_message(response, channel='GENERAL')
+    sleep(1)
+
+def bot2_vote():
+    bot_list = ["BOT1", "BOT3", "BOT4", "BOT5", "BOT6"]
+    random_num = random.randint(0, 4)
+    bot_name = bot_list[random_num]
+    bot2_rocket.chat_post_message('!vote @' + bot_name, channel='GENERAL')
     sleep(1)

@@ -1,9 +1,10 @@
 import os
 import openai
+import random
 from .bot6 import bot6_rocket
 from time import sleep,time
 
-openai.api_key = os.environ.get('OPENAI_KEY')
+openai.api_key = os.environ.get('OPENAI_KEY2')
 
 with open('agents/bot6/start.txt') as f:
     start = f.read()
@@ -37,4 +38,11 @@ def bot6_intro():
 def bot6_response(message):
     response = handle_response(start + "GM: 朝になりました。議論をはじめてください。他の人:" + message)
     bot6_rocket.chat_post_message(response, channel='GENERAL')
+    sleep(1)
+
+def bot6_vote():
+    bot_list = ["BOT1", "BOT2", "BOT3", "BOT4", "BOT5"]
+    random_num = random.randint(0, 4)
+    bot_name = bot_list[random_num]
+    bot6_rocket.chat_post_message('!vote @' + bot_name, channel='GENERAL')
     sleep(1)

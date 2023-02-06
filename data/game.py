@@ -12,6 +12,7 @@ from agents.bot6.bot6_ai import *
 def start_game(message, day):
     if message == '!start':
         rocket.chat_post_message('人狼ゲームを始めます', channel='GENERAL')
+        revive()
         random_position()
 
         say_day(day)
@@ -160,29 +161,84 @@ def remove_werewolfs(): # ゲーム終了時人狼チャットから全員追い
 def vote_time(start_time):
     rocket.chat_post_message('投票タイムが開始しました', channel='GENERAL')
     at_strings = []
-    
+
     while True:
+        bot1_vote()
         vote_result = vote()
-        if vote_result:
+        if vote_result != None:
             at_strings.append(vote_result)
+            
+        bot2_vote()
+        vote_result = vote()
+        if vote_result != None:
+            at_strings.append(vote_result)
+            
+        bot3_vote()
+        vote_result = vote()
+        if vote_result != None:
+            at_strings.append(vote_result)
+
+        bot4_vote()
+        vote_result = vote()
+        if vote_result != None:
+            at_strings.append(vote_result)
+
+        bot5_vote()
+        vote_result = vote()
+        if vote_result != None:
+            at_strings.append(vote_result)
+            
+        bot6_vote()
+        vote_result = vote()
+        if vote_result != None:
+            at_strings.append(vote_result)
+                
         end_time = time()
-        if end_time - start_time >= 20: # 投票終了
+
+        if end_time - start_time >= 30: # 投票終了
+            vote_target = most_common_element(at_strings)
+            rocket.chat_post_message(vote_target + "が追放されます。", channel='GENERAL')
+            dead(vote_target)
             rocket.chat_post_message('投票タイムが終了しました', channel='GENERAL')
             return time()
+
+def most_common_element(arr):
+    # 各要素の出現回数を数えます
+    count = {}
+    for i in arr:
+        if i in count:
+            count[i] += 1
+        else:
+            count[i] = 1
+    # 出現回数が最大の要素を取得します
+    max_element = None
+    max_count = 0
+    for i in count:
+        if count[i] > max_count:
+            max_element = i
+            max_count = count[i]
+    return max_element
 
 def night_time(start_time):
     rocket.chat_post_message('夜の時間が開始しました', channel='GENERAL')
     while True:
         end_time = time()
-        if end_time - start_time >= 10: # 夜の終了
+        if end_time - start_time >= 30: # 夜の終了
             rocket.chat_post_message('夜の時間が終了しました', channel='GENERAL')
             start_time = time()
             return time()
 
-def dead():
-    rocket.roles_remove_user_from_role('Alive', 'BOT4')
-    rocket.roles_add_user_to_role('Dead', 'BOT4')
+def dead(name):
+    name_after = name.lstrip('@')
+    rocket.roles_remove_user_from_role('Alive', name_after)
+    rocket.roles_add_user_to_role('Dead', name_after)
 
+def revive():
+    members = find_members()
+    for member in members:
+        rocket.roles_remove_user_from_role('Dead', member)
+        rocket.roles_add_user_to_role('Alive', member)
+    
 def vote():
     message = get_message()
     if '!vote' in message:
@@ -194,13 +250,22 @@ def vote():
 
 def talk_time():
     message = get_message()
-
     bot1_response(message)
-    bot2_response(message)
-    bot3_response(message)
-    bot4_response(message)
-    bot5_response(message)
-    bot6_response(message)
+
+    # message = get_message()
+    # bot2_response(message)
+
+    # message = get_message()
+    # bot3_response(message)
+
+    # message = get_message()
+    # bot4_response(message)
+
+    # message = get_message()
+    # bot5_response(message)
+
+    # message = get_message()
+    # bot6_response(message)
 
 def say_day(day):
     rocket.chat_post_message(str(day) + '日目の朝です', channel='GENERAL')
