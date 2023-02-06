@@ -8,4 +8,4 @@ password = os.environ.get('ROCKET_PASSWORD')
 server_url = os.environ.get('ROCKET_SERVER_URL')
 
 with sessions.Session() as session:
-    bot1_rocket = RocketChat(username, password, server_url=server_url, session=session)
+    bot4_rocket = RocketChat(username, password, server_url=server_url, session=session)

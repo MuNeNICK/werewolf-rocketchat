@@ -10,7 +10,8 @@ with open('agents/bot1/start.txt') as f:
 
 def handle_response(message) -> str:
     response = openai.Completion.create(
-        model="text-chat-davinci-002-20221122",
+        # model="text-chat-davinci-002-20221122",
+        model="text-davinci-003",
         prompt=
         message +
         '''
@@ -20,7 +21,7 @@ def handle_response(message) -> str:
         temperature=0.7,
         max_tokens=2048,
         top_p=1,
-        frequency_penalty=0.0,
+        frequency_penalty=0.8,
         presence_penalty=0.0,
     )
 

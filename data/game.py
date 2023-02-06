@@ -4,6 +4,10 @@ from pprint import pprint
 from main import rocket
 from agents.bot1.bot1_ai import *
 from agents.bot2.bot2_ai import *
+from agents.bot3.bot3_ai import *
+from agents.bot4.bot4_ai import *
+from agents.bot5.bot5_ai import *
+from agents.bot6.bot6_ai import *
 
 def start_game(message, day):
     if message == '!start':

@@ -1,6 +1,6 @@
 import os
 import openai
-from .bot1 import bot1_rocket
+from .bot3 import bot3_rocket
 from time import sleep,time
 
 openai.api_key = os.environ.get('OPENAI_KEY')
@@ -10,7 +10,8 @@ with open('agents/bot3/start.txt') as f:
 
 def handle_response(message) -> str:
     response = openai.Completion.create(
-        model="text-chat-davinci-002-20221122",
+        # model="text-chat-davinci-002-20221122",
+        model="text-davinci-003",
         prompt=
         message +
         '''
@@ -20,7 +21,7 @@ def handle_response(message) -> str:
         temperature=0.7,
         max_tokens=2048,
         top_p=1,
-        frequency_penalty=0.0,
+        frequency_penalty=0.8,
         presence_penalty=0.0,
     )
 
@@ -31,9 +32,9 @@ def handle_response(message) -> str:
 def bot3_intro():
     response = handle_response(start + "GM: 自己紹介とあなたの役職を教えてください。ただし、役職が人狼の方は自身の役職が村人であると主張してください。")
     # response = handle_response(start + "GM: 自己紹介とあなたの役職を教えてください。ただし、役職が人狼の方は自身の役職が村人であると主張してください。")
-    bot1_rocket.chat_post_message(response, channel='GENERAL')
+    bot3_rocket.chat_post_message(response, channel='GENERAL')
 
 def bot3_response(message):
     response = handle_response(start + "GM: 朝になりました。議論をはじめてください。他の人:" + message)
-    bot1_rocket.chat_post_message(response, channel='GENERAL')
+    bot3_rocket.chat_post_message(response, channel='GENERAL')
     sleep(1)
