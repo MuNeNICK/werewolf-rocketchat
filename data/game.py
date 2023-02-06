@@ -162,40 +162,40 @@ def vote_time(start_time):
     rocket.chat_post_message('投票タイムが開始しました', channel='GENERAL')
     at_strings = []
 
-    while True:
-        bot1_vote()
-        vote_result = vote()
-        if vote_result != None:
-            at_strings.append(vote_result)
-            
-        bot2_vote()
-        vote_result = vote()
-        if vote_result != None:
-            at_strings.append(vote_result)
-            
-        bot3_vote()
-        vote_result = vote()
-        if vote_result != None:
-            at_strings.append(vote_result)
+    bot1_vote()
+    vote_result = vote()
+    if vote_result != None:
+        at_strings.append(vote_result)
+        
+    bot2_vote()
+    vote_result = vote()
+    if vote_result != None:
+        at_strings.append(vote_result)
+        
+    bot3_vote()
+    vote_result = vote()
+    if vote_result != None:
+        at_strings.append(vote_result)
 
-        bot4_vote()
-        vote_result = vote()
-        if vote_result != None:
-            at_strings.append(vote_result)
+    bot4_vote()
+    vote_result = vote()
+    if vote_result != None:
+        at_strings.append(vote_result)
 
-        bot5_vote()
-        vote_result = vote()
-        if vote_result != None:
-            at_strings.append(vote_result)
-            
-        bot6_vote()
-        vote_result = vote()
-        if vote_result != None:
-            at_strings.append(vote_result)
-                
+    bot5_vote()
+    vote_result = vote()
+    if vote_result != None:
+        at_strings.append(vote_result)
+        
+    bot6_vote()
+    vote_result = vote()
+    if vote_result != None:
+        at_strings.append(vote_result)
+
+    while True:                
         end_time = time()
 
-        if end_time - start_time >= 30: # 投票終了
+        if end_time - start_time >= 15: # 投票終了
             vote_target = most_common_element(at_strings)
             rocket.chat_post_message(vote_target + "が追放されます。", channel='GENERAL')
             dead(vote_target)
@@ -252,20 +252,20 @@ def talk_time():
     message = get_message()
     bot1_response(message)
 
-    # message = get_message()
-    # bot2_response(message)
+    message = get_message()
+    bot2_response(message)
 
-    # message = get_message()
-    # bot3_response(message)
+    message = get_message()
+    bot3_response(message)
 
-    # message = get_message()
-    # bot4_response(message)
+    message = get_message()
+    bot4_response(message)
 
-    # message = get_message()
-    # bot5_response(message)
+    message = get_message()
+    bot5_response(message)
 
-    # message = get_message()
-    # bot6_response(message)
+    message = get_message()
+    bot6_response(message)
 
 def say_day(day):
     rocket.chat_post_message(str(day) + '日目の朝です', channel='GENERAL')
